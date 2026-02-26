@@ -158,41 +158,6 @@ Or edit `~/.config/zed/settings.json`.
 | `STDB_MCP_ALLOW_WRITE` | Enable write tools (set to "1") |
 | `STDB_MCP_ALLOW_DANGEROUS` | Enable dangerous tools (set to "1") |
 
-## Tools
-
-### Workspace Intelligence
-- `workspace.summary` - Get project structure overview
-- `workspace.search_code` - Search code patterns
-- `workspace.git_diff_summary` - Show modified files
-- `workspace.detect_module_path` - Find module source
-- `workspace.detect_bindings_path` - Find bindings file
-
-### SpacetimeDB CLI
-- `stdb.cli.status` - Check CLI and modules
-- `stdb.cli.start` - Start server
-- `stdb.cli.publish` - Publish module
-- `stdb.cli.generate_bindings` - Generate client bindings
-- `stdb.cli.logs_tail` - Tail recent logs
-
-### Debug
-- `stdb.debug.last_panic` - Get last panic from logs
-- `stdb.debug.explain_error` - Explain errors with suggestions
-- `stdb.debug.server_health` - Check server health
-
-### Build
-- `dev.cargo.check` - Run cargo check
-- `dev.cargo.test` - Run cargo test
-
-### Project
-- `stdb.project.describe` - Extract schema (tables, reducers, views)
-- `stdb.project.agent_context` - Generate agent knowledge bundle
-
-### Bindings
-- `stdb.bindings.inspect` - Inspect generated bindings
-
-### Capabilities
-- `stdb.capabilities` - Detect available capabilities
-
 ## SpacetimeDB Rules
 
 This server follows SpacetimeDB conventions:
