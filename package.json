@@ -5,13 +5,13 @@
   "main": "dist/index.js",
   "type": "module",
   "bin": {
-    "spacetimedb-mcp": "node ./dist/index.js"
+    "spacetimedb-mcp": "./dist/index.sh"
   },
   "scripts": {
-    "build": "tsc && chmod +x dist/index.js",
+    "build": "tsc && chmod +x dist/index.js dist/index.sh",
     "dev": "tsc --watch",
     "prepare": "npm run build",
-    "postinstall": "chmod +x dist/index.js",
+    "postinstall": "chmod +x dist/index.js dist/index.sh",
     "prepublishOnly": "npm run build",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "smoke": "node scripts/smoke_test.mjs"
