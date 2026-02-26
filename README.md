@@ -14,18 +14,29 @@ Universal MCP server providing Convex-level developer experience for SpacetimeDB
 
 ## Installation
 
-### From GitHub (recommended)
+### Quick Start (with issues - see below)
 ```bash
 npx github:karutoil/SpacetimeMCP
 ```
 
-### From source
+### From source (recommended)
 ```bash
 git clone https://github.com/karutoil/SpacetimeMCP.git
 cd SpacetimeMCP
 npm install && npm run build
 node dist/index.js
 ```
+
+### Using npm link (for global use)
+```bash
+git clone https://github.com/karutoil/SpacetimeMCP.git
+cd SpacetimeMCP
+npm install && npm run build
+npm link
+spacetimedb-mcp
+```
+
+> **Note:** If `npx` has issues on your system, use one of the alternatives above.
 
 ## MCP Setup
 
