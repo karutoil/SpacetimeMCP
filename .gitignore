@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build output (keep dist tracked for npx from git)
+# dist/
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary
+*.tmp
+*.temp
