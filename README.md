@@ -14,28 +14,125 @@ Universal MCP server providing Convex-level developer experience for SpacetimeDB
 
 ## Installation
 
-### From npm (published version)
+### From GitHub (recommended)
 ```bash
-npm i -g spacetimedb-mcp
-spacetimedb-mcp
-```
-
-### From GitHub (latest version)
-```bash
-npx github:<username>/spacetimedb-mcp
-# Or using git+https
-npx git+https://github.com/<username>/spacetimedb-mcp.git
+npx github:karutoil/SpacetimeMCP
 ```
 
 ### From source
 ```bash
-git clone https://github.com/<username>/spacetimedb-mcp.git
-cd spacetimedb-mcp
-npm install
-npm run build
-npm link  # Or run directly
+git clone https://github.com/karutoil/SpacetimeMCP.git
+cd SpacetimeMCP
+npm install && npm run build
 node dist/index.js
 ```
+
+## MCP Setup
+
+Use the built-in `mcp add` command for your AI coding assistant:
+
+### Claude Desktop
+```bash
+# Not supported - use JSON config below
+```
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+```json
+{
+  "mcpServers": {
+    "spacetimedb": {
+      "command": "npx",
+      "args": ["github:karutoil/SpacetimeMCP"],
+      "env": { "STDB_PROJECT_ROOT": "/path/to/project" }
+    }
+  }
+}
+```
+
+### Cursor
+```bash
+Cursor > Settings > MCP > Add new server
+```
+Or edit `.cursor/mcp.json`:
+```json
+{
+  "mcpServers": {
+    "spacetimedb": {
+      "command": "npx",
+      "args": ["github:karutoil/SpacetimeMCP"],
+      "env": { "STDB_PROJECT_ROOT": "${workspaceFolder}" }
+    }
+  }
+}
+```
+
+### Cline (formerly Claude Dev)
+```bash
+cline mcp add
+```
+Then enter:
+- Name: `spacetimedb`
+- Command: `npx`
+- Args: `github:karutoil/SpacetimeMCP`
+- Env: `STDB_PROJECT_ROOT=.`
+
+### Claude Code (CLI)
+```bash
+claude mcp add
+```
+Then enter the same values as Cline.
+
+### Zed
+```bash
+zed: extensions > add mcp server
+```
+Or edit `~/.config/zed/settings.json`.
+
+### Continue (VS Code / JetBrains)
+```bash
+# Use the VS Code command palette or edit .continue/config.json
+```
+
+## Tools
+
+### Workspace Intelligence
+- `workspace.summary` - Get project structure overview
+- `workspace.search_code` - Search code patterns in Rust files
+- `workspace.git_diff_summary` - Show modified files
+- `workspace.detect_module_path` - Find module source (lib.rs/main.rs)
+- `workspace.detect_bindings_path` - Find generated bindings file
+
+### SpacetimeDB CLI
+- `stdb.cli.status` - Check CLI and installed modules
+- `stdb.cli.start` - Start SpacetimeDB server
+- `stdb.cli.publish` - Publish a module
+- `stdb.cli.generate_bindings` - Generate client bindings
+- `stdb.cli.logs_tail` - Tail recent log entries
+- `stdb.cli.logs_follow` - Get command to stream logs
+
+### Debug Intelligence
+- `stdb.debug.last_panic` - Get last panic from logs with suggestions
+- `stdb.debug.explain_error` - Explain an error with actionable fixes
+- `stdb.debug.server_health` - Check if server is healthy
+
+### Build / Cargo
+- `dev.cargo.check` - Run cargo check for compilation errors
+- `dev.cargo.test` - Run cargo test
+
+### Project Schema
+- `stdb.project.describe` - Extract tables, reducers, views from source
+- `stdb.project.agent_context` - Generate knowledge bundle for AI agents
+
+### Client Bindings
+- `stdb.bindings.inspect` - Inspect generated bindings (tables, reducers)
+
+### Capabilities
+- `stdb.capabilities` - Detect if runtime reducer calling is possible
+
+### Client Runtime (requires STDB_MCP_ALLOW_WRITE=1)
+- `stdb.client.connect` - Get connection guidance
+- `stdb.client.subscribe` - Get subscription guidance
+- `stdb.client.reducer.call` - Get reducer call guidance
 
 ## Configuration
 
@@ -64,7 +161,6 @@ node dist/index.js
 ## Tools
 
 ### Workspace Intelligence
-
 - `workspace.summary` - Get project structure overview
 - `workspace.search_code` - Search code patterns
 - `workspace.git_diff_summary` - Show modified files
@@ -72,81 +168,30 @@ node dist/index.js
 - `workspace.detect_bindings_path` - Find bindings file
 
 ### SpacetimeDB CLI
-
 - `stdb.cli.status` - Check CLI and modules
 - `stdb.cli.start` - Start server
 - `stdb.cli.publish` - Publish module
 - `stdb.cli.generate_bindings` - Generate client bindings
 - `stdb.cli.logs_tail` - Tail recent logs
-- `stdb.cli.logs_follow` - Get command to follow logs
 
 ### Debug
-
 - `stdb.debug.last_panic` - Get last panic from logs
 - `stdb.debug.explain_error` - Explain errors with suggestions
 - `stdb.debug.server_health` - Check server health
 
 ### Build
-
 - `dev.cargo.check` - Run cargo check
 - `dev.cargo.test` - Run cargo test
 
 ### Project
-
 - `stdb.project.describe` - Extract schema (tables, reducers, views)
 - `stdb.project.agent_context` - Generate agent knowledge bundle
 
 ### Bindings
-
 - `stdb.bindings.inspect` - Inspect generated bindings
 
 ### Capabilities
-
 - `stdb.capabilities` - Detect available capabilities
-
-### Client (Requires Write Permission)
-
-- `stdb.client.connect` - Get connection guidance
-- `stdb.client.subscribe` - Get subscription guidance
-- `stdb.client.reducer.call` - Get reducer call guidance
-
-## Usage Examples
-
-### Get Project Summary
-
-```json
-{
-  "name": "workspace.summary",
-  "arguments": {}
-}
-```
-
-### Publish a Module
-
-```json
-{
-  "name": "stdb.cli.publish",
-  "arguments": {}
-}
-```
-
-### Extract Schema
-
-```json
-{
-  "name": "stdb.project.describe",
-  "arguments": {}
-}
-```
-
-### Debug a Panic
-
-```json
-{
-  "name": "stdb.debug.last_panic",
-  "arguments": { "dbName": "myapp" }
-}
-```
 
 ## SpacetimeDB Rules
 
@@ -161,35 +206,17 @@ This server follows SpacetimeDB conventions:
 ## Troubleshooting
 
 ### "Module not found"
-
 Run `spacetime generate <path-to-lib.rs>` to create bindings.
 
 ### "Database name required"
-
-Set `STDB_DB_NAME` environment variable or pass `--db-name` flag.
-
-### "Bindings not found"
-
-Run `spacetime generate` to create `module_bindings.rs`.
+Set `STDB_PROJECT_ROOT` to your project directory.
 
 ### Write tools not working
-
 Set `STDB_MCP_ALLOW_WRITE=1` in environment.
-
-### BigInt errors
-
-Remember: SpacetimeDB uses BigInt for IDs. Use `"123n"` strings in client bindings.
 
 ## Testing
 
 ```bash
-# Build the project
 npm run build
-
-# Run smoke tests
 npm run smoke
 ```
-
-## License
-
-MIT
